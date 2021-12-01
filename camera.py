@@ -24,7 +24,7 @@ class Camera(BaseCamera):
         with picamera.PiCamera() as camera:
             camera.start_preview()
             time.sleep(2)
-            with array.PiRGBArray(camera) as stream:
+            with picamera.array.PiRGBArray(camera) as stream:
                 while True:
                     camera.capture(stream, format='bgr')
                     # At this point the image is available as stream.array
