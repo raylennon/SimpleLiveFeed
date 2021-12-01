@@ -18,12 +18,13 @@ class Camera(BaseCamera):
     @staticmethod
     def frames():
         camera = cv2.VideoCapture(Camera.video_source)
-        camera.set(cv2.CAP_PROP_EXPOSURE,-4)
+
         if not camera.isOpened():
             raise RuntimeError('Could not start camera.')
 
         while True:
             # read current frame
+            camera.set(cv2.CAP_PROP_EXPOSURE,-4)
             _, img = camera.read()
 
             # encode as a jpeg image and return it
