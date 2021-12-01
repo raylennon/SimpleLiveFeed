@@ -24,8 +24,11 @@ class Camera(BaseCamera):
         with picamera.PiCamera() as camera:
             camera.start_preview()
             time.sleep(2)
-            with picamera.array.PiRGBArray(camera) as stream:
-                while True:
-                    camera.capture(stream, format='bgr')
-                    # At this point the image is available as stream.array
-                    image = stream.array
+            stream = io.BytesIO()
+            for foo in camera.capture_continuous(stream, format='jpeg'):
+                # YOURS:  for frame in camera.capture_continuous(stream, format="bgr",  use_video_port=True):
+                    # Truncate the stream to the current position (in case
+                    # prior iterations output a longer image)
+                    stream.truncate()
+                    stream.seek(0)
+                    yield stream.array.tobytes()
