@@ -3,6 +3,7 @@ import io
 import cv2
 from base_camera import BaseCamera
 import picamera
+import picamera.array
 import numpy as np
 import time
 
@@ -23,7 +24,7 @@ class Camera(BaseCamera):
         with picamera.PiCamera() as camera:
             camera.start_preview()
             time.sleep(2)
-            with picamera.array.PiRGBArray(camera) as stream:
+            with array.PiRGBArray(camera) as stream:
                 while True:
                     camera.capture(stream, format='bgr')
                     # At this point the image is available as stream.array
