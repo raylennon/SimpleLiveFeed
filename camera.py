@@ -21,8 +21,8 @@ class Camera(BaseCamera):
     def frames():
         #camera = cv2.VideoCapture(Camera.video_source)
         camera = picamera.PiCamera()
-        if not camera.isOpened():
-            raise RuntimeError('Could not start camera.')
+        #if not camera.isOpened():
+        #    raise RuntimeError('Could not start camera.')
         stream = io.BytesIO()
         while True:
             # read current frame
