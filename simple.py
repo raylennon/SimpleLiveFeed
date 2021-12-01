@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import cv2
 from importlib import import_module
 import os
 from flask import Flask, render_template, Response
@@ -24,6 +25,7 @@ def index():
 def gen(camera):
     """Video streaming generator function."""
     while True:
+        camera.set(cv2.CAP_PROP_EXPOSURE,-4)
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
