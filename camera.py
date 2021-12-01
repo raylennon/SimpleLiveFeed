@@ -20,18 +20,11 @@ class Camera(BaseCamera):
 
     @staticmethod
     def frames():
-        #camera = cv2.VideoCapture(Camera.video_source)
         with picamera.PiCamera() as camera:
             camera.start_preview()
             time.sleep(2)
-            #if not camera.isOpened():
-            #    raise RuntimeError('Could not start camera.')
             with picamera.array.PiRGBArray(camera) as stream:
                 while True:
-                    # read current frame
-                    #camera.set(cv2.CAP_PROP_EXPOSURE,-4)
-                    #_, img = camera.read()
                     camera.capture(stream, format='bgr')
-                    # encode as a jpeg image and return it
-                    yield stream.array.tobytes()
-                    #yield cv2.imencode('.jpg', img)[1].tobytes()
+                    # At this point the image is available as stream.array
+                    image = stream.array
