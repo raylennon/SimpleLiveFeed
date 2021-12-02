@@ -2,8 +2,8 @@ import os
 import io
 import cv2
 from base_camera import BaseCamera
-import picamera
-import picamera.array
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 import numpy as np
 import time
 
@@ -21,11 +21,19 @@ class Camera(BaseCamera):
 
     @staticmethod
     def frames():
-        with picamera.PiCamera() as camera:
+
+        camera = PiCamera()
+        camera.resolution = (640, 480)
+        camera.framerate = 32
+        rawCapture = PiRGBArray(camera, size=(640, 480))
+
+        time.sleep(0.1)
+
+        with PiCamera() as camera:
             camera.start_preview()
             time.sleep(2)
-            stream = io.BytesIO()
-            for frame in camera.capture_continuous(stream, format="bgr",  use_video_port=True):
+            stream = PiRGBArray(camera, size=(640, 480))
+            for frame in camera.capture_continuous(stream, format="bgr", use_video_port=True):
                     # Truncate the stream to the current position (in case
                     # prior iterations output a longer image)
                     stream.truncate()
