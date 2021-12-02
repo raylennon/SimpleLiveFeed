@@ -54,11 +54,15 @@ class Camera(BaseCamera):
         # Capture frames continuously from the camera
         for frame in camera.capture_continuous(raw_capture, format="bgr", use_video_port=True):
             
-            # Grab the raw NumPy array representing the image
             image = frame.array
-            
-            # Display the frame using OpenCV
-            yield image.tobytes()
 
-            # Clear the stream in preparation for the next frame
+            # show the frame
+            cv2.imshow("Frame", image)
+            key = cv2.waitKey(1) & 0xFF
+
+            # clear the stream in preparation for the next frame
             raw_capture.truncate(0)
+
+            # if the `q` key was pressed, break from the loop
+            if key == ord("q"):
+                break
