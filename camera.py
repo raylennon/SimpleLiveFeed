@@ -57,7 +57,7 @@ class Camera(BaseCamera):
             image = frame.array
 
             # show the frame
-            cv2.imshow("Frame", image)
+            yield image.tobytes()
             key = cv2.waitKey(1) & 0xFF
 
             # clear the stream in preparation for the next frame
