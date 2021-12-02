@@ -30,7 +30,6 @@ class Camera(BaseCamera):
         time.sleep(0.1)
 
         with PiCamera() as camera:
-            camera.start_preview()
             time.sleep(2)
             stream = PiRGBArray(camera, size=(640, 480))
             for frame in camera.capture_continuous(stream, format="bgr", use_video_port=True):
