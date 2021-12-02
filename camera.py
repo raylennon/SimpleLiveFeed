@@ -22,6 +22,9 @@ class Camera(BaseCamera):
     @staticmethod
     def frames():
         camera = cv2.VideoCapture(Camera.video_source)
+        camera.set(cv2.CAP_PROP_AUTO_EXPOSURE, 3) # auto mode
+        camera.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1) # manual mode
+        camera.set(cv2.CAP_PROP_EXPOSURE, -4.0)
         if not camera.isOpened():
             raise RuntimeError('Could not start camera.')
 
