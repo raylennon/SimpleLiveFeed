@@ -47,12 +47,10 @@ def takepic():
     img = cv2.imdecode(jpg_as_np, flags=1)
     cv2.imwrite('imgs/+'+time.strftime("%Y%m%d-%H%M%S")+'.png', img)
 
-
-
 if __name__ == '__main__':
 
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=takepic, trigger="interval", seconds=60)
+    scheduler.add_job(func=takepic, trigger="interval", seconds=1800)
 
     scheduler.start()
 
