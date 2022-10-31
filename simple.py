@@ -43,9 +43,7 @@ def video_feed():
 
 def takepic():
     frame = Camera().get_frame()
-    asb64 = base64.b64decode(frame)
-    jpg_as_np = np.frombuffer(asb64, dtype=np.uint8)
-    img = cv2.imdecode(jpg_as_np, flags=1)
+    img = frame
     cv2.imwrite('imgs/+'+time.strftime("%Y%m%d-%H%M%S")+'.png', img)
 
 
@@ -53,7 +51,7 @@ def takepic():
 if __name__ == '__main__':
 
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=takepic, trigger="interval", seconds=60)
+    scheduler.add_job(func=takepic, trigger="interval", seconds=5)
 
     scheduler.start()
 
