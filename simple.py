@@ -2,6 +2,7 @@
 from importlib import import_module
 import os
 from flask import Flask, render_template, Response
+import base64
 
 # import camera driver
 if os.environ.get('CAMERA'):
@@ -11,6 +12,11 @@ else:
 
 # Raspberry Pi camera module (requires picamera package)
 # from camera_pi import Camera
+
+import time
+from apscheduler.schedulers.background import BackgroundScheduler
+import numpy as np
+import cv2
 
 app = Flask(__name__)
 
@@ -35,5 +41,20 @@ def video_feed():
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+def takepic():
+    frame = Camera().get_frame()
+    asb64 = base64.b64decode(frame)
+    jpg_as_np = np.frombuffer(asb64, dtype=np.uint8)
+    img = cv2.imdecode(jpg_as_np, flags=1)
+    cv2.imwrite('imgs/+'+time.strftime("%Y%m%d-%H%M%S")+'.png', img)
+
+
+
 if __name__ == '__main__':
+
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(func=takepic, trigger="interval", seconds=60)
+
+    scheduler.start()
+
     app.run(host='0.0.0.0', threaded=True, port=80)
