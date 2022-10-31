@@ -43,6 +43,7 @@ def video_feed():
 
 def takepic():
     frame = Camera().get_frame()
+    print(type(frame))
     img = frame
     cv2.imwrite('imgs/+'+time.strftime("%Y%m%d-%H%M%S")+'.png', img)
 
