@@ -43,7 +43,8 @@ def video_feed():
 
 def takepic():
     frame = Camera().get_frame()
-    img = cv2.imdecode(frame, flags=1)
+    jpg_as_np = np.frombuffer(frame, dtype=np.uint8)
+    img = cv2.imdecode(jpg_as_np, flags=1)
     cv2.imwrite('imgs/+'+time.strftime("%Y%m%d-%H%M%S")+'.png', img)
 
 
