@@ -49,7 +49,7 @@ def takepic():
 
 if __name__ == '__main__':
 
-    scheduler = BackgroundScheduler()
+    scheduler = BackgroundScheduler({'apscheduler.job_defaults.max_instances': 15})
     scheduler.add_job(func=takepic, trigger="interval", seconds=1800)
 
     scheduler.start()
