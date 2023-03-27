@@ -17,7 +17,7 @@ import time
 import numpy as np
 import cv2
 
-app = Flask(__name__,static_folder='/static')
+app = Flask(__name__)#,static_folder='static')
 
 
 @app.route('/')
