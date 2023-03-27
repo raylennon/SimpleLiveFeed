@@ -17,7 +17,7 @@ class CameraEvent(object):
         self.events = {}
 
     def wait(self):
-        """Invoked from each client's thread to wait for the next frame."""
+        """Invoked from each client's thad to wait for the next frame."""
         ident = get_ident()
         if ident not in self.events:
             # this is a new client
