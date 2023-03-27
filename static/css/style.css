@@ -21,7 +21,7 @@ body {
   background: #fff;
 }
 
-div {
+div::not(.bg-image):not(.box){
   padding: 0;
   margin: 0;
   width: 3em;
