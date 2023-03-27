@@ -14,7 +14,6 @@ else:
 # from camera_pi import Camera
 
 import time
-from apscheduler.schedulers.background import BackgroundScheduler
 import numpy as np
 import cv2
 
