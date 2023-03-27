@@ -41,17 +41,7 @@ def video_feed():
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-def takepic():
-    frame = Camera().get_frame()
-    jpg_as_np = np.frombuffer(frame, dtype=np.uint8)
-    img = cv2.imdecode(jpg_as_np, flags=1)
-    cv2.imwrite('imgs/+'+time.strftime("%Y%m%d-%H%M%S")+'.png', img)
-
 if __name__ == '__main__':
 
-    scheduler = BackgroundScheduler({'apscheduler.job_defaults.max_instances': 15})
-    scheduler.add_job(func=takepic, trigger="interval", seconds=1800)
-
-    scheduler.start()
 
     app.run(host='0.0.0.0', threaded=True, port=5000)
