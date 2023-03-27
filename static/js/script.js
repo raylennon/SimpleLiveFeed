@@ -11,6 +11,7 @@ $( document ).ready(function() {
       switch(e.keyCode) {
         case 38:
           device.callFunction("forward"); 
+          console.log("Running forward!");
           break;
         case 37:
           device.callFunction("left");
